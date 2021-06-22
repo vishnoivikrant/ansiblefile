@@ -1,1 +1,18 @@
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC29S92Ix20/V5XVQSUjRl3D0PnkfoxbMynFk+m8aCqHzS8KJCXOBJ6DjewP7LWALCyX+KNRrU/F+jn/J1UsB+22hUC9O6xeWL8YC5btNlF0S9EvzTr3f1e5tUtLOjIVAFvEy/b3TI/B93nZUgmw0o7j4beqbPB20Et74W+O1i/EVZY8HTUXXggdLP37Imm8sEqzdGaXEEdBxcxYS7Oe87+Oyz83QXHaDks4Lmq+QkQsbivYvKYMtWl1q4oOWnWFn9baalKGoC4zYTrrJu94PjeenGpK7f5U2bqVSyf7neayKmq7AS+Kx7zBToXdQNeouRddVDklMloEWFuvtOiPifpA+UbsWpjTyqs5KPWHRcn59oy3L87QdZ8RK51jB0GIi7SkdSUiyZr+/Uhl2WSTAwHRGuixu2wxlL/d6Piuga5BA9yDnruzZFT+yIcB7+NSikdhpIYtVgtOsBl70EEq8wQL+TfxYHMEzzlrAwyhE9vHybseMk8K1Gk9oIwjQknl/k= root@osboxes
+---
+- name: Install nginx web server
+  apt: 
+   pkg=nginx
+   state=present
+   update_cache=true
+  notify:
+  - start nginx
+- name: Upload
+  copy: src=index.html dest=/usr/share/nginx/www/ mode=0644
+  register: php
+  ignore_errors: True
+- name: Remove index.html for host
+  command: rm /usr/share/nginx/www/index.html
+  when: php is succeeded
+- name: Upload default index.html for host
+  copy: src=index.html dest=/usr/share/nginx/www/ mode=0644
+  when: php is failed
