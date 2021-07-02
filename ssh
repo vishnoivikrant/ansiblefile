@@ -1,18 +1,1 @@
----
-- name: Install nginx web server
-  apt: 
-   pkg=nginx
-   state=present
-   update_cache=true
-  notify:
-  - start nginx
-- name: Upload
-  copy: src=index.html dest=/usr/share/nginx/www/ mode=0644
-  register: php
-  ignore_errors: True
-- name: Remove index.html for host
-  command: rm /usr/share/nginx/www/index.html
-  when: php is succeeded
-- name: Upload default index.html for host
-  copy: src=index.html dest=/usr/share/nginx/www/ mode=0644
-  when: php is failed
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDcsNxCcaEqMqWv+mwRxHJkGO8H8HvVwdVZ2e7SmGX6qnbGnePuFC4O89mRNPfpuigZbWvexiuhPmUDaL0tNSCwx9FYXoGVwV+Bl28yfbBMBVa3K51pfl01/8OIrM0io8g3ARMCepMIC3ZCzU5WkPvh57t03HCxocVZNuQaVmNQX8Kv2j3Bnz1S3/Bm9lxIT4+P0x7YnVJCK0V7TZ+MKxTt3zqAo0l9vTBzpapEL+KnHM3GKjCMphSmwWLH2Nk9L12MIcgdiCyHAdiDvL2iyAdH3tvHCzFwE7MlZAc1vqa4xOIwCWRbbhtzvI5w91gZ/7WzMMCx79Ml4g5derOEx2HqVOLugeQo/gYdf0SONFMnMZxJxGzD9D/DK3owF4clg2Hmlx9N/Q6oAMRPKJo4rsod3ggAYqmsSQOvMap9NU4xhyoyGfvsxGGTqZhgCzM3bQS0oADQcrkTNvaXjXrk2UVrYVVQcfp3Zi9h+bfTpwathgUNI43QMz/F6K69jtHqxY0= osboxes@osboxes
