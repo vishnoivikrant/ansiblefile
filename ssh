@@ -1,1 +1,40 @@
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDUyJoGuIDyTWbF7MshvHV2dzFyXerF44B5IPP2owe+NTOf94LiLo/iZs0F9oT2sM9TB7QamIApmnKoefSpUyw7dbFaqTmwi1zE3bFwW+CLAW0NGOKCjFaw/tOMmFP5VGrnBNJkTJ3fVUfoTCOCN+KyuTL8egvH3Zcms8BZ/shTv8jxniJmgwuAEZKTwhtE9tezfaZhGkr4zIPV+zJPSXWDqJT810A0wl4bZ1tKGlOuqpsOwDsUIyDIIjwqZcTMRjqXx/XLpkyzrGn8cVXPrha1cYn6UTIlTV3wB+KtaxtnaHqgAZ055WQaK2ncUcp9iI0+uMacTjTMQwGUSbPQJjxAwYUKgeqJAs6XyAmgxsSt0MfpVQsI7LFHWdC/84oo/kX4lIMx9lmlSS0bN6STCnFxBvy+Z9/6sOuI/Z/P2TRHbTbH3RzsNq+9XP8XBjMNeCQif8iPqR4wRunCYN51X/npJhACoDfZpq+/Bs8vfPC/dxT2ZSt89apvVmBxiikhHF8= jenkins@osboxes
+package SeleniumWebsite;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class website {
+    public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized"); // open Browser in maximized mode
+        options.addArguments("disable-infobars"); // disabling infobars
+        options.addArguments("--disable-extensions"); // disabling extensions
+        options.addArguments("--disable-gpu"); // applicable to windows os only
+        options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+        options.addArguments("--no-sandbox"); // Bypass OS security model
+
+        WebDriver driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
+        driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.get("http://localhost:8081");
+
+        boolean result = false;
+        String actualtext = driver.findElement(By.xpath("//*[@id='About Us']")).getText();
+        System.out.println("Text displayed: "+actualtext);
+        if (actualtext.equals("About Us"))
+            result = true;
+
+        if (result != false)
+            System.out.println("Website is accessible");
+        else
+            System.out.println("Website is not accessible");
+
+        driver.quit();
+    }
+
+}
