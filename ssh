@@ -1,1 +1,2 @@
-kubeadm join control-plane.k8s-cluster:6443 --token zowplz.xns7ay871pnv815s --discovery-token-ca-cert-hash sha256:55bdb664d0f74cab97174db1ff4599818adba48a2cf5dabc667032aae241f5ef
+kubeadm join 192.168.0.60:6443 --token ihtkhg.91xdxtjsdctprb8n \
+	--discovery-token-ca-cert-hash sha256:f1d503a392abf900d5ae4dc6f878a16982790d47b361660e9a612e83581a9bee
