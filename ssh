@@ -1,3 +1,2 @@
-kubeadm join 192.168.0.60:6443 --token fsfthe.riq2m1524oufet65 \
-	--discovery-token-ca-cert-hash sha256:0e6ad6f53a62c0887dc6c2ced4afc0cbfdbf5db8b3b1ae5b3318d6c888c08e34 
-root@osboxes-master:~/.ssh#  export KUBECONFIG=/etc/kubernetes/admin.conf
+kubeadm join 192.168.0.60:6443 --token b81rd5.da0ig7vds9m0g62p \
+	--discovery-token-ca-cert-hash sha256:4220b48120d52d812064e550f2fff551270fa55ebb87b328ac2a62e3f09e0aa4
